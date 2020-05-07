@@ -3,210 +3,207 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>ULEARN LMS</title>
+        <title>Tutohub LMS</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="robots" content="all,follow">
         <!-- Bootstrap CSS-->
-        <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
-        <link rel="stylesheet" href="{{ asset('frontend/css/fancybox.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/animate.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/magnific-popup.css') }}">
         
-        <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/fontawesome-all.min.css') }}">
+
+         <link rel="stylesheet" href="{{ asset('frontend/css/aos.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/meanmenu.css') }}">
+        
+        <link rel="stylesheet" href="{{ asset('frontend/css/slick.css') }}">
+         <link rel="stylesheet" href="{{ asset('frontend/css/default.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
+        
 
         <link rel="stylesheet" href="{{ asset('backend/fonts/web-icons/web-icons.min599c.css?v4.0.2') }}">
         <link rel="stylesheet" href="{{ asset('backend/vendor/toastr/toastr.min599c.css?v4.0.2') }}">
         
     </head>
     <body>
-    <div class="se-pre-con"></div>
-    <!-- Header -->
-
-    <nav class="navbar navbar-default fixed-top">
-        <div class="row" style="flex-grow: 1;">
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2" id="logo">
-                <i class="fa fa-bars d-inline-block d-md-none mobile-nav"></i>
-                <a href="{{ route('home') }}" class="float-xl-right"><img src="{{ asset('frontend/img/logo.png') }}" width="100" height="23" /></a>
-            </div>
-            <div class="col-md-3 col-lg-6 col-xl-6 d-none d-md-block">
-                <div class="dropdown float-left" >
-                  <span id="dropdownMenuButton" data-toggle="dropdown">Categories &nbsp;<i class="fa fa-caret-down"></i></span>
-                    <?php 
-                        $categories = SiteHelpers::active_categories();
-                    ?>
-                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    @foreach ($categories as $category)
-                        <a class="dropdown-item" href="{{ route('course.list','category_id[]='.$category->id) }}">
-                            <i class="fa {{ $category->icon_class }} category-menu-icon"></i>
-                            {{ $category->name}}
-                        </a>
-                    @endforeach
-                  </div>
+            <div id="preloader">
+            <div id="loading-center">
+                <div id="loading-center-absolute">
+                    <div class="object" id="object_one"></div>
+                    <div class="object" id="object_two"></div>
+                    <div class="object" id="object_three"></div>
                 </div>
             </div>
-
-            <div class="col-sm-5 col-md-3 col-lg-2 col-xl-2 d-none d-sm-block">
-                @if(Auth::check() && !Auth::user()->hasRole('instructor') && !Auth::user()->hasRole('admin'))
-                <span class="become-instructor" href="{{ route('login') }}" data-toggle="modal" data-target="#myModal">Become Instructor</span>
-                @endif
-            </div>
-
-            <div class="col-6 col-sm-3 col-md-3 col-lg-2 col-xl-2">
-                @guest
-                <a class="btn btn-learna" href="{{ route('login') }}">Login / Sign Up</a>
-                @else
-                <div class="dropdown float-xl-left float-sm-right float-right">
-                  <span id="dropdownMenuButtonRight" data-toggle="dropdown">{{ Auth::user()->first_name }} &nbsp;<i class="fa fa-caret-down"></i></span>
-                    
-                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtonRight">
-                    
-                    @if(Auth::user()->hasRole('instructor'))
-                    <a class="dropdown-item" href="{{ route('instructor.dashboard') }}" >
-                        <i class="fa fa-sign-out-alt"></i> Instructor
-                    </a>
-                    @endif
-
-                    <a class="dropdown-item" href="{{ route('my.courses') }}" >
-                        <i class="fa fa-sign-out-alt"></i> My Courses
-                    </a>
-
-                    <a class="dropdown-item" href="{{ route('logOut') }}" >
-                        <i class="fa fa-sign-out-alt"></i> Logout
-                    </a>
-                    
-                  </div>
-                </div>
-
-                @endguest
-            </div>
         </div>
-    </nav>
+        <!-- preloader-end -->
 
-    <div id="sidebar">
-        <ul>
-           <li><a href="javascript:void(0)" class="sidebar-title">Categories</a></li>
-           @foreach ($categories as $category)
-           <li>
-                <a href="{{ $category->slug }}">
-                    <i class="fa {{ $category->icon_class }} category-menu-icon"></i>
-                    {{ $category->name}}
-                </a>
-           </li>
-           @endforeach
-        </ul>
-    </div>
-    @yield('content')
+        <!-- header -->
+        <header>
+         
+            <div id="header-sticky" class="main-header-area">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-4">
+                            <div class="logo">
+                                <a href="index.html"><img src="{{asset('frontend/img/logo/logo.png')}}" alt="logo"></a>
 
-    <!-- footer start -->
-    <footer id="main-footer">
-        <div class="row m-0">
-            <div class="col-lg-2 col-md-4 col-sm-4 col-6 mt-3">
-                <ul>
-                    <li class="mb-1"><b>Quick Links</b></li>
-                    <li><a href="{{ route('home') }}">Home Page</a></li>
-                    <li><a href="{{ route('course.list') }}">Courses List</a></li>
-                    <li><a href="{{ route('instructor.list') }}">Instructors List</a></li>
-                    <li><a href="{{ route('blogs') }}">Blogs List</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 col-6 mt-3">
-                <ul>
-                    <li class="mb-1"><b>Resources</b></li>
-                    <li><a href="{{ route('page.about') }}">About Us</a></li>
-                    <li><a href="{{ route('page.contact') }}">Contact Us</a></li>
-                    <li><a href="{{ route('register') }}">Register Page</a></li>
-                    <li><a href="{{ route('login') }}">Login Page</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 mt-3 d-none d-sm-block">
-                <ul>
-                    <li class="mb-1"><b>Top Categories</b></li>
-                    @foreach ($categories as $category)
-                        @if($loop->iteration <= 4)
-                            <li><a href="{{ route('course.list','category_id[]='.$category->id) }}">{{ $category->name}}</a></li>
-                        @endif
-                    @endforeach
-                    
-                </ul>
-            </div>
-            <div class="col-lg-6 col-md-12 col-sm-12 text-center mt-4">
-                <img src="{{ asset('frontend/img/logo_footer.png') }}" class="img-fluid" width="210" height="48">
-                <br>
-                <span id="c-copyright">
-                    Copyright © 2019, Ulearn. All rights reserved.
-                </span>
-            </div>
-        </div>
-    </footer>
-    <!-- footer end -->
-
-    <!-- The Modal start -->
-    <div class="modal" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header bi-header ">
-            <h5 class="col-12 modal-title text-center bi-header-seperator-head">Become an Instructor</h5>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-           
-        <div class="becomeInstructorForm">
-           <form id="becomeInstructorForm" class="form-horizontal" method="POST" action="{{ route('become.instructor') }}">
-            {{ csrf_field() }}
-                <div class="px-4 py-2">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-6">
-                                <label>First Name</label>
-                                <input type="text" class="form-control form-control-sm" placeholder="First Name" name="first_name">
                             </div>
-                            <div class="col-6">
-                                <label>Last Name</label>
-                                <input type="text" class="form-control form-control-sm" placeholder="Last Name" name="last_name">
+                        </div>
+                        <div class="col-lg-5 col-md-6 d-none d-md-block">
+                            <div class="header-search-bar">
+                                <form method="GET" action="{{ route('course.list') }}">
+                                    <input type="text" name="keyword" placeholder="Search Courses .." >
+                                    <button type="submit" ><i class="fas fa-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 text-right d-none d-lg-block">
+                            <div class="main-menu d-inline-block">
+                                <nav id="mobile-menu">
+                                    <ul>
+                                          <?php 
+                                           $categories = SiteHelpers::active_categories();
+                                           ?>
+                                        <li class="menu-item-has-children"><a href="#">Categories</a>
+                                            <ul class="submenu">
+                                                 @foreach ($categories as $category)
+                                                <li><a href="{{ route('course.list','category_id[]='.$category->id) }}"> {{ $category->name}}</a></li>
+                                                  @endforeach
+                                            </ul>
+                                        </li>
+                                    
+
+
+                                    </ul>
+
+                                </nav>
+                            </div>
+   <div class="header-sign-btn s-header-sign-btn d-none d-lg-inline-block">
+                                <a href="/login">Log In</a>
+                                <a href="/register">Sign Up</a>
+                            </div>
+                            <div class="shop-cart-icon d-none d-xl-inline-block">
+                                <a href="#"><img src="{{asset('frontend/img/icon/shop_cart.png')}}" alt="icon"></a>
+                                <span>0</span>
+                            </div>
+
+
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile-menu"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- header-end -->
+
+       @yield('content')
+        <!-- main-area-end -->
+
+        <!-- footer -->
+        <footer class="footer-area black-bg">
+            <div class="footer-top-wrap pt-95 pb-40">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="footer-widget mb-50">
+                                <div class="fw-logo mb-15">
+
+                                    <a href="index.html"><img src="{{asset('frontend/img/logo/w_logo.png')}}" alt="Logo"></a>
+                                </div>
+                                <div class="footer-text">
+                                    <p>We provides universal access to the world’s best education, partnering with top universities and make with top students
+                                    with great result.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 pr-50">
+                            <div class="footer-widget mb-50">
+                                <div class="fw-title mb-20">
+                                    <h4>Useful Links</h4>
+                                </div>
+                                <div class="fw-link">
+                                    <ul>
+                                        <li><a href="#"><i class="fas fa-angle-right"></i> Home</a></li>
+                                        <li><a href="#"><i class="fas fa-angle-right"></i> About</a></li>
+                                        <li><a href="#"><i class="fas fa-angle-right"></i> Courses</a></li>
+                                        <li><a href="#"><i class="fas fa-angle-right"></i> Instructor</a></li>
+                                        <li><a href="#"><i class="fas fa-angle-right"></i> Blog</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="col-lg-4 col-sm-6 pr-40">
+                            <div class="footer-widget mb-50">
+                                <div class="fw-title mb-20">
+                                    <h4>Contact Us</h4>
+                                </div>
+                                <div class="fw-contact">
+                                    <ul>
+                                        <li><i class="fas fa-phone"></i> 545 - 123 - 467</li>
+                                        <li><i class="far fa-envelope"></i> ourmail@infomail.com</li>
+                                        <li><i class="fas fa-map-marker-alt"></i> Northern East, USA</li>
+                                        <li><i class="fas fa-fax"></i> 123 456 789 0</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>Contact Email</label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Contact Email" name="contact_email">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Telephone</label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Telephone" name="telephone">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Paypal ID</label>
-                        <input type="text" class="form-control form-control-sm" placeholder="Paypal ID" name="paypal_id">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Biography</label>
-                        <textarea class="form-control form-control" placeholder="Biography" name="biography"></textarea>
-                    </div>
-
-                    <div class="form-group mt-4">
-                        <button type="submit" class="btn btn-lg btn-block login-page-button">Submit</button>
-                    </div>
-
                 </div>
-                </form>
             </div>
-        </div>
-      </div>
-    </div>
-    <!-- The Modal end -->
-    </body>
-    <script src="{{ asset('frontend/js/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/fancybox.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/modernizr.js') }}"></script>
-    <script src="{{ asset('frontend/js/jquery.validate.js') }}"></script>
-    
-    <!-- Toastr -->
-    <script src="{{ asset('backend/vendor/toastr/toastr.min599c.js?v4.0.2') }}"></script>
+            <div class="container">
+                <div class="copyright-wrap">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="copyright-text">
+                                <p>&copy; Copyrights 2019 TUTOHUB Designed By Love. All rights reserved.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="copyright-social text-center text-md-right">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer-end -->
+
+
 
     
+    <script src="{{ asset('frontend/js/vendor/jquery-1.12.4.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/popper.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/slick.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.meanmenu.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/ajax-form.js') }}"></script>
+    <script src="{{ asset('frontend/js/wow.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/aos.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.nice-select.min.js') }}"></script>
+
+     <script src="{{ asset('frontend/js/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/plugins.js') }}"></script>
+    <script src="{{ asset('frontend/js/main.js') }}"></script>
+   
 
     <script>
     $(window).on("load", function (e){
@@ -305,4 +302,5 @@
         });
     </script>
     @yield('javascript')
+    </body>
 </html>

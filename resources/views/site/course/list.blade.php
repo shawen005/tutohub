@@ -37,161 +37,161 @@
     $j++;
     endforeach;
 ?>
-<!-- content start -->
-    <div class="container-fluid p-0 home-content">
-        <!-- banner start -->
-        <div class="subpage-slide-blue">
-            <div class="container">
-                <h1>Course List</h1>
-            </div>
-        </div>
-        <!-- banner end -->
 
-        <!-- breadcrumb start -->
-            <div class="breadcrumb-container">
+        <!-- main-area -->
+        <main>
+            <!-- breadcrumb-area -->
+            <section class="breadcrumb-area">
+                <div class="breadcrumb-bg" data-background="{{ asset('frontend/img/images/breadcrumb_bg03.jpg') }}"></div>
+                <div class="breadcrumb-wrap">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-sm-6">
+                                <div class="breadcrumb-content">
+                                    <h2>Our Courses</h2>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Our Courses</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- breadcrumb-area-end -->
+            <!-- courses-area -->
+
+            <section class="courses-area pt-30 pb-10">
                 <div class="container">
-                  <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Course List</li>
-                  </ol>
-                </div>
-            </div>
-        
-        <!-- breadcrumb end -->
-        <div class="container mt-5">
-            <div class="row">
-                <!-- filter start -->
-                <div class="col-xl-2 col-lg-2 col-md-3 d-none d-md-block">
-                <form method="GET" action="{{ route('course.list') }}" id="courseList">
-                    <span class="blue-title">Filter Results</span>
-                    @if($_GET)
-                    <a href="{{ route('course.list') }}" class="clear-filters"><i class="fa fa-sync"></i>&nbsp;Clear filters</a>
-                    @endif
-                    <h6 class="mt-2 underline-heading">Categories</h6>
-                    <ul class="ul-no-padding">
-                        @foreach ($categories as $category)
-                        <li> 
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input filter-results" id="{{ 'cat-'.$category->id }}" name="category_id[]" value="{{ $category->id }}" 
-                                @if(isset($_GET['category_id']))
-                                    {{ in_array($category->id, $_GET['category_id']) ? 'checked' : '' }}
-                                @endif
-                                 >
-                                <label class="custom-control-label" for="{{ 'cat-'.$category->id }}">{{ $category->name }}</label>
+                      <div class="row mb-50">
+                        
+                        <div class="col-xl-8 col-md-9 col-sm-8">
+                           
+                            <div class="short-by d-none d-md-inline-block">
+                                <form action="#">
+                                    <select name="select" id="select">
+                                        <option value="">Sort by</option>
+                                       
+                                        <option value="">low to high</option>
+                                        <option value="">high to low</option>
+                                       
+                                    </select>
+                                </form>
                             </div>
-                        </li>
-                        @endforeach
-                    </ul>
-
-                    <h6 class="mt-3 underline-heading">Level</h6>
-                    
-                    <ul class="ul-no-padding">
-                        @foreach ($instruction_levels as $instruction_level)
-                        <li> 
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input filter-results" id="{{ 'ins-level-'.$instruction_level->id }}" name="instruction_level_id[]" value="{{ $instruction_level->id }}"
-                                @if(isset($_GET['instruction_level_id']))
-                                    {{ in_array($instruction_level->id, $_GET['instruction_level_id']) ? 'checked' : '' }}
-                                @endif
-                                >
-                                <label class="custom-control-label" for="{{ 'ins-level-'.$instruction_level->id }}">{{ $instruction_level->level }}</label>
+                            <div class="shop-search d-md-none d-block d-lg-inline-block">
+                                <form action="#">
+                                    <input type="text" placeholder="Search from here....">
+                                    <button><i class="fas fa-search"></i></button>
+                                </form>
                             </div>
-                        </li>
-                        @endforeach
-                    </ul>
-
-                    <h6 class="mt-3 underline-heading">Price</h6>
-                    <?php $levels = array(
-                                            '0-0' => 'Free',
-                                            '1-50' => 'Less than USD 50',
-                                            '50-99' => 'USD 50 - USD 99',
-                                            '100-199' => 'USD 100 - USD 199',
-                                            '200-299' => 'USD 200 - USD 299',
-                                            '300-399' => 'USD 300 - USD 399',
-                                            '400-499' => 'USD 400 - USD 499',
-                                            '500' => 'More than USD 500',
-                                            );
-                    ?>
-                    <ul class="ul-no-padding">
-                        <?php foreach ($levels as $l_key => $l_value) { ?>
-                        <li> 
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input filter-results" id="{{ $l_key }}" name="price_id[]" value="{{ $l_key }}"
-                                @if(isset($_GET['price_id']))
-                                    {{ in_array($l_key, $_GET['price_id']) ? 'checked' : '' }}
-                                @endif
-                                >
-                                <label class="custom-control-label" for="{{ $l_key }}">{{ $l_value }}</label>
-                            </div>
-                        </li>
-                        <?php }?>
-                    </ul>
-                </form>
-                </div>
-                <!-- filter end -->
-                <!-- course block start -->
-                <div class="col-xl-10 col-lg-10 col-md-9">
-                    <div class="row px-2">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-8">
-                            <span >Showing {{ $courses->currentPage() }} of {{ $courses->lastPage() }} page(s)</span>
-                        </div>
-                        <div class="col-xl-2 offset-xl-4 col-lg-2 offset-lg-4 col-md-3 offset-md-3 col-sm-3 offset-sm-3 col-4">
-                            <select class="form-control form-control-sm sort-by">
-                                <option value="">Sort By</option>
-                                <option<?php echo(!empty($_GET['sort_price']) && $_GET['sort_price']=='asc')?' selected="selected"':'';?> value="sort_price=asc">Price (Low to High)</option>
-                                <option<?php echo(!empty($_GET['sort_price']) && $_GET['sort_price']=='desc')?' selected="selected"':'';?>  value="sort_price=desc">Price (High to Low)</option>
-                            </select>
                         </div>
                     </div>
-                    
-                    <!-- course start -->
                     <div class="row">
-                    @foreach($courses as $course)
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="course-block mx-auto">
-                            <a href="{{ route('course.view', $course->course_slug) }}" class="c-view">
-                                <main>
-                                    <img src="@if(Storage::exists($course->thumb_image)){{ Storage::url($course->thumb_image) }}@else{{ asset('backend/assets/images/course_detail_thumb.jpg') }}@endif">
-                                    <div class="col-md-12"><h6 class="course-title">{{ $course->course_title }}</h6></div>
-                                    
-                                    <div class="instructor-clist">
-                                        <div class="col-md-12">
-                                            <i class="fa fa-chalkboard-teacher"></i>&nbsp;
-                                            <span>Created by <b>{{ $course->first_name.' '.$course->last_name }}</b></span>
+                        <div class="col-xl-9 col-lg-8">
+                            <div class="row">
+                             
+                               
+                                
+                                  @foreach($courses as $course)
+                                <div class="col-xl-4 col-lg-6 col-sm-6">
+                                    <div class="single-courses mb-30">
+                                        <div class="courses-thumb">
+                                            <img src="@if(Storage::exists($course->thumb_image)){{ Storage::url($course->thumb_image) }}@else{{ asset('backend/assets/images/course_detail_thumb.jpg') }}@endif" alt="img">
+                                            <div class="courses-avatar">
+                                                
+                                                <p>{{ $course->first_name.' '.$course->last_name }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="courses-content p-relative">
+                                            <p class="courses-price">$10</p>
+                                          
+                                            <h4><a href="{{ route('course.view', $course->course_slug) }}">{{ $course->course_title }}</a></h4>
+                                            <div class="courses-meta">
+                                                <ul>
+                                                    <li class="courses-user"><i class="far fa-user"></i> 10,455</li>
+                                                    <li class="courses-rating">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </main>
-                                <footer>
-                                    <div class="c-row">
-                                        <div class="col-md-6 col-sm-6 col-6">
-                                            @php $course_price = $course->price ? config('config.default_currency').$course->price : 'Free'; @endphp
-                                            <h5 class="course-price">{{  $course_price }}&nbsp;<s>{{ $course->strike_out_price ? $course->strike_out_price : '' }}</s></h5>
-                                        </div>
-                                        <div class="col-md-5 offset-md-1 col-sm-5 offset-sm-1 col-5 offset-1">
-                                            <star class="course-rating">
-                                            <?php for ($r=1;$r<=5;$r++) { ?>
-                                                <span class="fa fa-star <?php echo $r <= $course->average_rating ? 'checked' : '';?>"></span>
-                                            <?php }?>
-                                            </star>
-                                        </div>
-                                    </div>
-                                </footer>
-                            </a>    
+                                </div>
+                               @endforeach
+                               
+
                             </div>
                         </div>
-                    @endforeach
+                        <div class="col-xl-3 col-lg-4">
+                            
+                            <div class="details-widget mb-30">
+                                <div class="details-widget-title mb-15">
+                                    <h4>Category</h4>
+                                </div>
+                                <div class="sidebar-courses-cat">
+                                    <ul>
+                                       
+                                           @foreach ($categories as $category)
+                                           
+                                        <li><a href="{{ route('course.list','category_id[]='.$category->id) }}"></i>{{ $category->name }}</a></li>
+                                       @endforeach 
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="details-widget mb-30">
+                                <div class="details-widget-title mb-15">
+                                    <h4>New Courses</h4>
+                                </div>
+                                <div class="sidebar-popular-courses">
+                                    <ul>
+                                        <li>
+                                            <div class="sp-courses-thumb">
+                                                <a href="#"><img src="{{ asset('frontend/img/courses/sp_courses_thumb01.jpg') }}" alt="img"></a>
+                                            </div>
+                                            <div class="sp-courses-content">
+                                                <h5><a href="#">Basic c++ from beginning</a></h5>
+                                                <span>Free</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="sp-courses-thumb">
+                                                <a href="#"><img src="{{ asset('frontend/img/courses/sp_courses_thumb02.jpg') }}" alt="img"></a>
+                                            </div>
+                                            <div class="sp-courses-content">
+                                                <h5><a href="#">Android from beginning</a></h5>
+                                                <span>50$</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="sp-courses-thumb">
+                                                <a href="#"><img src="{{ asset('frontend/img/courses/sp_courses_thumb03.jpg') }}" alt="img"></a>
+                                            </div>
+                                            <div class="sp-courses-content">
+                                                <h5><a href="#">Javascript from beginning</a></h5>
+                                                <span>50$</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
-                    <!-- course end -->
-                    <!-- pagination start -->
-                    <div class="row float-right mt-5">
-                       {{ $courses->appends($_GET)->links() }}
-                    </div>
-                    <!-- pagination end -->
                 </div>
-                <!-- course block end -->
-            </div>
-        </div>
-        
+            </section>
+            <!-- courses-area-end -->
+        </main>
+        <!-- main-area-end -->
     <!-- content end -->
 @endsection
 
