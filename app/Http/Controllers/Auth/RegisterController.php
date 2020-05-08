@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Instructor;
 use App\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Input;
 
 class RegisterController extends Controller
 {
@@ -71,8 +73,19 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
+        if (Input::has('role') == 'instructor'){
+
+            instructor::create([
+            'user_id' => $user->id,
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'instructor_slug'  => $data['first_name'].'-'. $data['last_name'],
+        ]);
         $user->roles()
-           ->attach(Role::where('name', 'student')->first());
+           ->attach(Role::where('name', 'instructor')->first());
+        }
+
+      
         return $user;
     }
 }

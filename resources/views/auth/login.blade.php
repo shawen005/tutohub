@@ -1,26 +1,42 @@
 @extends('layouts.frontend.index')
 
 @section('content')
-<!-- content start -->
-    <div class="container-fluid p-0 home-content container-top-border">
-        <!-- account block start -->
-        <div class="container">
-            <nav class="navbar clearfix secondary-nav pt-0 pb-0 login-page-seperator">
-                <ul class="list mt-0">
-                     <li><a href="{{ route('login') }}" class="active">Login</a></li>
-                     <li><a href="{{ route('register') }}">Register</a></li>
-                </ul>
-            </nav>
-
-            <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-6 vertical-align d-none d-lg-block">
-                    <img class="img-fluid" src="{{ asset('frontend/img/fimg.png') }}" width="500px" height="500px">
+      <main>
+            <!-- breadcrumb-area -->
+            <section class="breadcrumb-area">
+                <div class="breadcrumb-bg" data-background="{{ asset('frontend/img/images/breadcrumb_bg02.jpg') }}"></div>
+                <div class="breadcrumb-wrap">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-sm-6">
+                                <div class="breadcrumb-content">
+                                    <h2>Login</h2>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Login</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-xl-6 offset-xl-0 col-lg-6 offset-lg-0 col-md-8 offset-md-2">
-                    <div class="rightRegisterForm">
-                    <form id="loginForm" class="form-horizontal" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
-                        <div class="p-4">
+            </section>
+            <!-- breadcrumb-area-end -->
+            <!-- contact-area -->
+            <section class="contact-area contact-padding pt-30 pb-10">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-lg-8">
+                            <div class="contact-wrap mb-30">
+                               
+                                <div class="contact-form">
+                                  <form id="loginForm" class="form-horizontal" method="POST" action="{{ route('login') }}">
+                                   {{ csrf_field() }}
+            
                             <div class="form-group">
                                 <label>Email ID</label>
                                 <input name="email" type="text" class="form-control form-control-sm" placeholder="Email ID" value="{{ old('email') }}">
@@ -50,6 +66,7 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-lg btn-block login-page-button">Login</button>
                             </div>
+
 
                             <div class="hr-container">
                                <hr class="hr-inline" align="left">
@@ -87,16 +104,30 @@
                                 </a>
                             </div>
 
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                        </form>
+                        <div class="col-xl-3 col-lg-4">
+                           <div class="sidebar-courses-banner text-center mb-35">
+                                <img src="{{ asset('frontend/img/courses/courses_banner.jpg') }}" alt="img">
+                                <div class="sbanner-overlay-content">
+                                    <h2>Save 30%</h2>
+                                    <p>from all courses</p>
+                                    <a href="#" class="btn">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
+            <!-- contact-area-end -->
+        </main>
+        <!-- main-area-end -->
 
-        <!-- account block end -->
-    </div>
-    <!-- content end -->
+
+
+
 @endsection
 
 @section('javascript')

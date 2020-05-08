@@ -1,7 +1,6 @@
 .nice-select {
 	-webkit-tap-highlight-color: transparent;
 	background-color: #fff;
-	border-radius: 50px;
 	border: 1px solid #e5e5e5;
 	clear: both;
 	cursor: pointer;
@@ -18,7 +17,6 @@
 	-ms-user-select: none;
 	user-select: none;
 	white-space: nowrap;
-	width: auto;
 	padding: 12px 30px;
 	padding-right: 45px;
 }
