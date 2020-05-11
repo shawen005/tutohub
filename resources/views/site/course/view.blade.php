@@ -165,7 +165,8 @@
                         <div class="col-xl-3 col-lg-4">
                             <div class="sidebar-courses-enroll">
                                 <h2>$100</h2>
-                                <h5><a href="#">Add to cart</a></h5>
+                                 <h5><a href="{{ route('cart.store', $course) }}">Enroll Now</a></h5>
+                                    
                             </div>
                             <div class="details-widget mb-30">
                                 <div class="details-widget-title mb-15">

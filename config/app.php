@@ -161,7 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+    
         /*
          * Package Service Providers...
          */
@@ -232,7 +232,8 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Omnipay' => Ignited\LaravelOmnipay\Facades\OmnipayFacade::class,
-        'Zipper' => Chumper\Zipper\Zipper::class
+        'Zipper' => Chumper\Zipper\Zipper::class,
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class
 
     ],
 

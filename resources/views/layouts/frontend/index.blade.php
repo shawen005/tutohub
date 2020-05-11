@@ -23,7 +23,6 @@
         <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
         
-
         <link rel="stylesheet" href="{{ asset('backend/fonts/web-icons/web-icons.min599c.css?v4.0.2') }}">
         <link rel="stylesheet" href="{{ asset('backend/vendor/toastr/toastr.min599c.css?v4.0.2') }}">
         
@@ -82,12 +81,12 @@
                                 </nav>
                             </div>
    <div class="header-sign-btn s-header-sign-btn d-none d-lg-inline-block">
-                                <a href="/login">Log In</a>
+                                <a href="/login">Log in</a>
                                 <a href="/register">Sign Up</a>
                             </div>
                             <div class="shop-cart-icon d-none d-xl-inline-block">
-                                <a href="#"><img src="{{asset('frontend/img/icon/shop_cart.png')}}" alt="icon"></a>
-                                <span>0</span>
+                                <a href="/cart"><img src="{{asset('frontend/img/icon/shop_cart.png')}}" alt="icon"></a>
+                                <span>{{ Cart::count() }}</span>
                             </div>
 
 

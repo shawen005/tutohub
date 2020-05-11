@@ -11,6 +11,7 @@
 |
 */
 Route::get('/', 'HomeController@index')->name('home');
+
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout')->name('logOut');
 
@@ -19,6 +20,12 @@ Route::get('/login/{social}','Auth\LoginController@socialLogin')->where('social'
 Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallback')->where('social','twitter|facebook|linkedin|google|github|bitbucket');
 
 // Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/cart', 'CartController@index')->name('cart.index');
+Route::get('/cart/{course}', 'CartController@store')->name('cart.store');
+Route::patch('/cart/{course}', 'CartController@update')->name('cart.update');
+Route::delete('/cart/{course}', 'CartController@destroy')->name('cart.destroy');
+Route::post('/cart/switchToSaveForLater/{course}', 'CartController@switchToSaveForLater')->name('cart.switchToSaveForLater');
 
 Route::get('about', 'HomeController@pageAbout')->name('page.about');
 Route::get('contact', 'HomeController@pageContact')->name('page.contact');

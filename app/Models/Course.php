@@ -531,5 +531,11 @@ class Course extends Model
            return \DB::table('course_progress')->insertGetId($dataarray);
          }
     }
+
+
+    public function scopeMightAlsoLike($query)
+    {
+        return $query->inRandomOrder()->take(4);
+    }
     
 }

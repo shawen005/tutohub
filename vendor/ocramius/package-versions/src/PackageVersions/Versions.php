@@ -14,6 +14,7 @@ final class Versions
 {
     public const ROOT_PACKAGE_NAME = 'ulearnpro/ulearn';
     public const VERSIONS          = array (
+  'bumbummen99/shoppingcart' => '2.9.1@08618b40f5003d3ed792cd746c8cc5bf1dec8f99',
   'chumper/zipper' => 'v1.0.3@d15207e010f8fe1bdd341376bd86d599c4166423',
   'clue/stream-filter' => 'v1.4.1@5a58cc30a8bd6a4eb8f856adf61dd3e013f53f71',
   'dnoegel/php-xdg-base-dir' => 'v0.1.1@8f8a6e48c5ecb0f991c2fdcf5f154a47d85f9ffd',
@@ -131,7 +132,7 @@ final class Versions
   'sebastian/version' => '2.0.1@99732be0ddb3361e16ad77b68ba41efc8e979019',
   'theseer/tokenizer' => '1.1.3@11336f6f84e16a720dae9d8e6ed5019efa85a0f9',
   'webmozart/assert' => '1.8.0@ab2cb0b3b559010b75981b1bdce728da3ee90ad6',
-  'ulearnpro/ulearn' => 'dev-master@a5a7ca20de859051ea0470542844980a66dfc05d',
+  'ulearnpro/ulearn' => 'dev-master@1f3334e976cf037b917f90741aadd803f15c7eb2',
 );
 
     private function __construct()
