@@ -8,8 +8,8 @@ use App\Models\Credit;
 use App\Models\Config;
 use App\Models\CourseTaken;
 use App\Models\Instructor;
-
-
+use Session;
+use Carbon\Carbon;
 class PaymentController extends Controller {
 
 	public function __construct()
@@ -155,6 +155,95 @@ class PaymentController extends Controller {
             	return Redirect::to('payment/form')->withErrors(['payment_error', true]);
         	}
 	}
+
+	public function pay(request $request){
+
+        $value = Carbon::now()->timestamp;
+        Session::put('reference', $value);
+        $ref=Session::get('reference');    
+        for ($i = 0; $i < count($request->input('id')); $i++){
+
+        	$transaction = new Transaction;
+			$transaction->user_id = \Auth::user()->id;
+			$transaction->course_id = $request->course_id[$i];
+			$transaction->amount = $request->price[$i];
+			$transaction->status = 'pending';
+			$transaction->payment_method = 'Master card';
+
+			
+			
+            $saved = $transaction->save();
+		
+        }
+     
+     
+       
+
+       
+       
+       $client = new \GuzzleHttp\Client();
+         $email = 'arunaseun@yahoo.com';
+         $amt = '50000';
+       $response = $client->request('POST', 'https://api.paystack.co/transaction/initialize', [
+        'form_params' => [
+            'email' =>  $email,
+            'amount' => $request->total * 100,
+            'order_details' => $ref,
+            
+            
+        ],
+        'headers' => [
+         'authorization' => 'Bearer sk_test_623107d029339704757bcff56a36fe6a855cd9ee'
+     ]
+    ]);
+    $response = $response->getBody()->getContents();
+    echo '<pre>';
+    $data =  json_decode($response,true);
+   
+     return redirect($data['data']['authorization_url']);
+    
+
+	}
+
+	public function getRequest()
+    {
+      $refs = Session::get('reference');
+      $client = new \GuzzleHttp\Client();
+      $res = $client->request('GET', 'https://api.paystack.co/transaction/verify/'.$refs, [ 
+          'headers' => [
+
+          'Authorization' => "Bearer sk_test_623107d029339704757bcff56a36fe6a855cd9ee"
+        
+
+        ]
+
+    ]);
+    
+        $response = $res->getBody()->getContents();
+        echo '<pre>';
+       $data =  json_decode($response,true);
+
+       if($data['data']['status'] == 'success'){
+
+    
+        transaction::where(['expiry' => '' . $refs ])->update(['status' => 'Successful']);
+        echo "<script>";
+            echo "alert('Payment successful');";
+            echo "</script>";
+
+        return redirect('/saving');
+     
+       }else{
+            
+            echo "<script>";
+            echo "alert('Payment not successful');";
+            echo "</script>";
+ 
+         return redirect('/');
+       }
+    
+    }
+
 
 	function save_transaction($data)
 	{

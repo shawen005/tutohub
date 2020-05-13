@@ -1,79 +1,126 @@
 @extends('layouts.frontend.index')
 @section('content')
-<!-- content start -->
-    <div class="container-fluid p-0 home-content">
-        <!-- banner start -->
-        <div class="subpage-slide-blue">
-            <div class="container">
-                <h1>My Courses</h1>
-            </div>
-        </div>
-        <!-- banner end -->
 
-        <!-- breadcrumb start -->
-        <div class="breadcrumb-container">
-            <div class="container">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">My Courses</li>
-              </ol>
-            </div>
-        </div>
-        
-        <!-- breadcrumb end -->
+   @if (Cart::count() < 0)
+     <section class="courses-area white-bg pt-37 pb-20">
+                <div class="container">
+                    <h3> My Courses</h3>
+                    <div class="row courses-active">
+                      @if(count($courses)> 0 )
+            @foreach($query as $course)
+                       
+                        <div class="col-xl-3">
+                            <div class="single-courses mb-30">
+                                <div class="courses-thumb">
 
-        <!-- course list start -->
-        <div class="container" id="my-courses">
-            <div class="row">
-            @if(count($courses)> 0 )
-            @foreach($courses as $course)
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                        <div class="course-block mx-auto">
-                        <a href="{{ route('course.learn', $course->course_slug) }}" class="c-view">
-                            <main>
-                                <img src="@if(Storage::exists($course->thumb_image)){{ Storage::url($course->thumb_image) }}@else{{ asset('backend/assets/images/course_detail_thumb.jpg') }}@endif">
-                                <div class="col-md-12"><h6 class="course-title">{{ $course->course_title }}</h6></div>
-                                
-                                <div class="instructor-clist">
-                                    <div class="col-md-12">
-                                        <i class="fa fa-chalkboard-teacher"></i>&nbsp;
-                                        <span>Created by <b>{{ $course->first_name.' '.$course->last_name }}</b></span>
+                                    <img src="@if(Storage::exists($course->thumb_image)){{ Storage::url($course->thumb_image) }}@else{{ asset('backend/assets/images/course_detail_thumb.jpg') }}@endif" alt="img">
+                                    <div class="courses-avatar">
+                                        
+                                        <p>{{ $course->first_name.' '.$course->last_name }}</p>
                                     </div>
                                 </div>
-                            </main>
-                            <footer>
-                                <div class="c-row">
-                                    <div class="col-md-6 col-sm-6 col-6">
-                                        @php $course_price = $course->price ? config('config.default_currency').$course->price : 'Free'; @endphp
-                                        <h5 class="course-price">{{  $course_price }}&nbsp;<s>{{ $course->strike_out_price ? $course->strike_out_price : '' }}</s></h5>
-                                    </div>
-                                    <div class="col-md-5 offset-md-1 col-sm-5 offset-sm-1 col-5 offset-1">
-                                        <star class="course-rating">
-                                        <?php for ($r=1;$r<=5;$r++) { ?>
-                                            <span class="fa fa-star <?php echo $r <= 4 ? 'checked' : '';?>"></span>
-                                        <?php }?>
-                                        </star>
+                                <div class="courses-content p-relative">
+                                    <p class="courses-price">₦{{ $course->price }} </p>
+                                    <span><i class="far fa-bookmark"></i> Javascript</span>
+                                    <h4><a href="{{ route('course.view', $course->course_slug) }}">{{ $course->course_title }}</a></h4>
+                                    <div class="courses-meta">
+                                        <ul>
+                                            <li class="courses-user"><i class="far fa-user"></i> 10,455</li>
+                                            <li class="courses-rating">
+                                              
+                                                  @for ($r=1;$r<=5;$r++)
+                                                <i class="fas fa-star"></i>
+                                                @endfor
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
-                            </footer>
-                        </a>    
+                            </div>
                         </div>
-                    </div>
-                @endforeach
-            @else
-                <article class="container not-found-block">
-                    <div class="row">
-                    <div class="col-12 not-found-col">
-                            <span><b>2<span class="blue">0</span>4</b></span>
+                        
+                        @endforeach
+                         @else
+                         
                             <h3>Sorry! No courses added to your account</h3>
                             <a href="{{ route('course.list') }}" class="btn btn-ulearn-cview mt-3">Explore Courses</a>
+                    
+                          @endif         
                     </div>
-                    </div>
-                </article>
-            @endif                             
-            </div>
-            </div>
+                </div>
+
+            </section>
+                    
+               @else
+
+               <div class="container">
+  <table id="cart" class="table table-hover table-condensed">
+            <thead>
+            <tr>
+              <th style="width:50%">Course</th>
+              <th style="width:10%">Price</th>
+    
+              <th style="width:10%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+             @foreach (Cart::content() as $item)
+             <tr>
+              <td data-th="Product">
+                <div class="row">
+                  <div class="col-sm-10">
+                    <h4 class="nomargin">{{ $item->model->course_title  }}</h4>
+                    <div>{{ $item->model->details }} </div>
+                  </div>
+                </div>
+
+                
+              </td>
+
+
+              <td data-th="Price">${{ $item->model->price }} </td>
+              
+              
+              <td class="actions" data-th="">
+               
+               <form action="{{ route('cart.destroy', $item->rowId) }}" method="POST">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+
+                                <button type="submit" class="btn btn-warning">Remove</button>
+                            </form>
+     
+              </td>
+            </tr>
+ @endforeach
+
+          </tbody>
+          <tfoot>
+            <tr>
+              <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+             
+              <td class="hidden-xs text-center"><strong>Total ${{ Cart::subtotal() }}</strong></td>
+                <form action="{{ route('payment.pay') }}" method="POST">
+                                {{ csrf_field() }}
+                                @foreach (Cart::content() as $item)
+                                   <input name="id[]" value="{{ Auth::user()->id }}" type="hidden">
+                                    <input name="course_id[]" value="{{  $item->model->id  }}" type="hidden">
+                                      <input name="price[]" value="{{  $item->model->price  }}" type="hidden">
+
+                                 @endforeach
+                                     <input name="total" value="{{ Cart::subtotal() }}" type="hidden">
+                           
+              </td>
+
+              <td><button type="submit" class="btn btn-success btn-block">Make payment </button>
+                   </form>
+     
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+</div>
+@endif
+                               
             
-        </div>
         <!-- course list end -->
 @endsection

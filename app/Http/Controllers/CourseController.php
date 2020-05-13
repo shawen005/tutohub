@@ -42,8 +42,10 @@ class CourseController extends Controller
                     ->join('instructors', 'instructors.id', '=', 'courses.instructor_id')
                     ->join('course_taken', 'course_taken.course_id', '=', 'courses.id')
                     ->where('course_taken.user_id',$user_id)->get();
+        $query = Course::all();
+        return view('site.course.my-courses', compact('courses','query'));
+
         
-        return view('site.course.my-courses', compact('courses'));
     }
 
     public function courseRate(Request $request)

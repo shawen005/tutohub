@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('delete-photo', 'CourseController@deletePhoto');
     Route::post('payment-form', 'PaymentController@paymentForm')->name('payment.form');
+      Route::post('/payment', 'PaymentController@pay')->name('payment.pay');
 
     Route::get('payment/success', 'PaymentController@getSuccess')->name('payment.success');
     Route::get('payment/failure', 'PaymentController@getFailure')->name('payment.failure');
@@ -72,6 +73,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('download-resource/{resource_id}/{course_slug}', 'CourseController@getDownloadResource');
 
+        Route::get('/callback', 'PaymentController@getRequest')->name('call');
         Route::get('my-courses', 'CourseController@myCourses')->name('my.courses');
         Route::get('course-learn/{course_slug}', 'CourseController@courseLearn')->name('course.learn');
 
