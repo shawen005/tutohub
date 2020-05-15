@@ -10,6 +10,7 @@ use App\Models\CourseTaken;
 use App\Models\Instructor;
 use Session;
 use Carbon\Carbon;
+use Cart;
 class PaymentController extends Controller {
 
 	public function __construct()
@@ -169,10 +170,19 @@ class PaymentController extends Controller {
 			$transaction->amount = $request->price[$i];
 			$transaction->status = 'pending';
 			$transaction->payment_method = 'Master card';
-
-			
-			
+            $transaction->order_details = $ref;
             $saved = $transaction->save();
+
+
+        if($saved){
+
+           $course = new CourseTaken;
+			$course->user_id = \Auth::user()->id;
+			$course->course_id = $request->course_id[$i];
+			$course->reference = $ref;
+            $course->save();
+        }
+
 		
         }
      
@@ -182,13 +192,13 @@ class PaymentController extends Controller {
        
        
        $client = new \GuzzleHttp\Client();
-         $email = 'arunaseun@yahoo.com';
-         $amt = '50000';
+       $email =  \Auth::user()->email;
+        
        $response = $client->request('POST', 'https://api.paystack.co/transaction/initialize', [
         'form_params' => [
             'email' =>  $email,
             'amount' => $request->total * 100,
-            'order_details' => $ref,
+            'reference' => $ref,
             
             
         ],
@@ -226,17 +236,21 @@ class PaymentController extends Controller {
        if($data['data']['status'] == 'success'){
 
     
-        transaction::where(['expiry' => '' . $refs ])->update(['status' => 'Successful']);
+        transaction::where(['order_details' => '' . $refs ])->update(['status' => 'completed']);
+        coursetaken::where(['reference' => '' . $refs ])->update(['status' => '1']);
+
+        
+        Cart::instance('default')->destroy();
         echo "<script>";
-            echo "alert('Payment successful');";
+            echo "alert('Payment successful')";
             echo "</script>";
 
-        return redirect('/saving');
+        return redirect('/my-courses');
      
        }else{
             
             echo "<script>";
-            echo "alert('Payment not successful');";
+            echo "alert('Payment not successful')";
             echo "</script>";
  
          return redirect('/');

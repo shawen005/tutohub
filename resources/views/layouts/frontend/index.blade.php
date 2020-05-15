@@ -80,10 +80,27 @@
 
                                 </nav>
                             </div>
+                            @guest
    <div class="header-sign-btn s-header-sign-btn d-none d-lg-inline-block">
                                 <a href="/login">Log in</a>
                                 <a href="/register">Sign Up</a>
                             </div>
+                             @else
+         <div class="header-sign-btn s-header-sign-btn d-none d-lg-inline-block">                     
+   
+        <a href="">My Account</a>
+   
+  
+        <a href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                     document.getElementById('logout-form').submit();">
+            Logout
+        </a>
+      </div>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
+    @endguest
                             <div class="shop-cart-icon d-none d-xl-inline-block">
                                 <a href="/cart"><img src="{{asset('frontend/img/icon/shop_cart.png')}}" alt="icon"></a>
                                 <span>{{ Cart::count() }}</span>

@@ -1,13 +1,13 @@
 @extends('layouts.frontend.index')
 @section('content')
 
-   @if (Cart::count() < 0)
+   @if (Cart::count() <  1)
      <section class="courses-area white-bg pt-37 pb-20">
                 <div class="container">
                     <h3> My Courses</h3>
                     <div class="row courses-active">
-                      @if(count($courses)> 0 )
-            @foreach($query as $course)
+                      @if(count($courses) > 0 )
+            @foreach($courses as $course)
                        
                         <div class="col-xl-3">
                             <div class="single-courses mb-30">

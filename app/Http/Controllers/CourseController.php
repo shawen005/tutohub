@@ -41,8 +41,10 @@ class CourseController extends Controller
                     ->select('courses.*', 'instructors.first_name', 'instructors.last_name')
                     ->join('instructors', 'instructors.id', '=', 'courses.instructor_id')
                     ->join('course_taken', 'course_taken.course_id', '=', 'courses.id')
-                    ->where('course_taken.user_id',$user_id)->get();
-        $query = Course::all();
+                    ->where('course_taken.user_id',$user_id)
+                     ->where('status','1')->get();
+                    
+      
         return view('site.course.my-courses', compact('courses','query'));
 
         
