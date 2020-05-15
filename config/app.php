@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://tutohub.herokuapp.com/'),
+    'url' => env('APP_URL', 'https://tutohub.herokuapp.com/'),
 
     'asset_url' => env('ASSET_URL', null),
 
