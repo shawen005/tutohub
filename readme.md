@@ -26,7 +26,7 @@ It comprises of all the basic features that needed for online learning. This pac
 16. Website Security
 
 ## Demo & Credentials
-Demo Link : http://tutohub.herokuapp.com/
+Demo Link : https://tutohub.herokuapp.com/
 
 |    Role       |        Email ID        |   Password    |
 | ------------- | ---------------------  | ------------- |
@@ -34,19 +34,6 @@ Demo Link : http://tutohub.herokuapp.com/
 |    Instructor | instructor@ulearn.com  |    secret     |
 |    Student    | student@ulearn.com     |    secret     |
 
-## Access ReactJS Page
-
-Login at the following link using the student credentials, username:student@ulearn.com | password:secret
-
-```sh
-https://www.ulearnpro.com/demo/login
-```
-
-Navigate to the following link, to access the course learn page directly
-
-```sh
-https://www.ulearnpro.com/demo/course-enroll/photography-become-a-better-photographer/dlhZZTZ6bmZWTGdRd3YzVWp2ZldMQT09
-```
 
 ## Installation
 In the root folder, find the .env file and change the following values
