@@ -1,19 +1,6 @@
-<p align="center"><img src="https://www.ulearnpro.com/img/logo_md.png"><a href="https://packagist.org/packages/ulearnpro/ulearn"><img src="https://poser.pugx.org/ulearnpro/ulearn/license.svg" alt="License"></a></p>
-<p align="center">
-  <a href="https://ko-fi.com/G2G311PPB"><img src="https://www.ko-fi.com/img/githubbutton_sm.svg" alt="ko-fi"></a>
-</p>
 
-* [About ULEARN](#about-ulearn)
-* [Key Features](#about-ulearn)
-* [Demo & Credentials](#about-ulearn)
-* [Access ReactJS Page](#access-reactjs-page)
-* [Installation](#about-ulearn)
-* [Support](#about-ulearn)
-* [License](#about-ulearn)
-
-## About ULEARN
-
-<a href="https://www.ulearnpro.com">ULEARN</a> is an impressive LMS script which comprises of all the basic features that needed for online learning. This package includes responsive frontend website, instructor/admin dashboard with a backend template. Admin can manage every aspect of the system, while the instructors could create creative courses through an interactive curriculum with various types of course files such as audio, video, document and text.
+Tutohub is an LMS application developed from <h2> Ulearn opensource script </h2>,it was customized and added new features that didnt come with the scripts to it. 
+It comprises of all the basic features that needed for online learning. This package includes responsive frontend website, instructor/admin dashboard with a backend template. Admin can manage every aspect of the system, while the instructors could create creative courses through an interactive curriculum with various types of course files such as audio, video, document and text.
 
 ```diff
 + Requests: 
@@ -39,7 +26,7 @@
 16. Website Security
 
 ## Demo & Credentials
-Demo Link : https://www.ulearnpro.com/demo/
+Demo Link : http://tutohub.herokuapp.com/
 
 |    Role       |        Email ID        |   Password    |
 | ------------- | ---------------------  | ------------- |
@@ -88,9 +75,6 @@ Run the seeder to import mandatory values to the tables
 ```sh
 php artisan db:seed
 ```
-
-## Support
-For contribution and customisation supports, kindly contact us through the Email ID ulearnpro@gmail.com
 
 ## License
 ULEARN is open-source software licensed under the [MIT License](LICENSE).
