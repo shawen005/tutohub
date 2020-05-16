@@ -1,5 +1,5 @@
 
-Tutohub is an LMS application developed from  Ulearn opensource script,it was customized and added new features that didnt come with the scripts to it. 
+Tutohub is an LMS application developed from  Ulearn opensource script,which I customized and added new features that didnt come with the scripts to it. 
 It comprises of all the basic features that needed for online learning. This package includes responsive frontend website, instructor/admin dashboard with a backend template. Admin can manage every aspect of the system, while the instructors could create creative courses through an interactive curriculum with various types of course files such as audio, video, document and text.
 
 ```diff
